@@ -179,7 +179,7 @@ sudo docker compose up --build -d
 En Windows
 
 ```sh
-docker compose up app --build -d  
+docker compose up --build -d  
 ```
 * Revisar que estén corriendo los 3 containers ``` docker ps ```
 
