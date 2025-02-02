@@ -174,7 +174,7 @@ docker network create challenge-meli-net
 * Ejecutar la instrucción 
 En linux
 ```sh 
-sudo docker compose up app --build -d
+sudo docker compose up --build -d
  ``` 
 En Windows
 
