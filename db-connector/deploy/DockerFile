@@ -1,0 +1,19 @@
+FROM python:3.12
+RUN adduser --disabled-login user
+
+COPY ./db-connector/deploy/requirements.txt requirements.txt
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+RUN mkdir /app
+WORKDIR /app
+ADD db-connector /app
+
+RUN chmod 777 ./certs/
+RUN chmod 777 ./certs/cert.pem
+RUN chmod 777 ./certs/key.pem
+
+USER user
+
+EXPOSE 5000
+CMD [ "python", "main.py" ]

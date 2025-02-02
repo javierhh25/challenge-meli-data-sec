@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MELI CHALLENGE</title>
+    {% include '_styles.html' %}
+    {% include '_scripts.html' %}
+  </head>
+  <body>
+    <h1>Lista de Documentos</h1>
+
+    {% include '_messages.html' %}
+
+    {% if documents %}
+      <table border="1">
+        <tr>
+          <th>ID Documento</th>
+          <th>Nombre</th>
+          <th>Ubicación</th>
+          <th>Dueño</th>
+          <th>Visibilidad</th>
+          <th>Acciones</th>
+        </tr>
+        {% for doc in documents %}
+          <tr>
+            <td>{{ doc.id_document }}</td>
+            <td>{{ doc.file_name }}</td>
+            <td>{{ doc.parent_name }}</td>
+            <td>{{ doc.owner_email}}</td>
+            <td id="visibility_{{ doc.id_document }}">{{ doc.visibility }}</td>
+            <td>
+              <button onclick="changeVisibility('{{ doc.id_document }}', '{{ doc.file_name }}', '{{ doc.parent_name }}', '{{ doc.owner_email }}', '{{ doc.visibility }}')">Cambiar a Privado</button>
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+    {% else %}
+      <p>No se encontraron documentos en la base de datos.</p>
+    {% endif %}
+
+    {% include '_action-buttons.html' %}
+  </body>
+</html>

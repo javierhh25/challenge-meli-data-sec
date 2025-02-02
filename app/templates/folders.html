@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+{% include '_head_template.html' %}
+<body>
+    <h1>Lista de Carpetas</h1>
+    <ul>
+        {% for folder in folders %}
+            <li>📁 {{ folder.name }} (ID: {{ folder.id }})</li>
+        {% endfor %}
+    </ul>
+    {% include '_action-buttons.html' %}
+</body>
+</html>

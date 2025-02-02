@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+{% include '_head_template.html' %}
+<body>
+
+<div class="container">
+    <h1>👋 Bienvenido</h1>
+
+    <p class="description">
+        Esta aplicación permite gestionar archivos y carpetas mediante Google Drive.
+        Para acceder a todas las funciones, inicia sesión con tu cuenta de Google.
+    </p>
+
+    {% include '_messages.html' %}
+
+    {% if not error %}
+
+    <p class="description">
+        🔐 Al iniciar sesión, podrás listar carpetas, buscar documentos y gestionar los documentos que sean públicos.
+    </p>
+
+    <a class="btn btn-primary" href="/login">Iniciar sesión con Google</a>
+    {% endif %}
+</div>
+
+</body>
+</html>

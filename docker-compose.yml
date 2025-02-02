@@ -1,0 +1,47 @@
+services:
+  db:
+    image: mysql
+    hostname: db-challenge
+    container_name: db-challenge
+    restart: always
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    env_file:
+      - ./secrets/.env
+
+  # application
+  app:
+    hostname: app-challenge
+    container_name: app-challenge
+    build:
+      context: .
+      dockerfile: ./app/deploy/DockerFile
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./secrets/.env
+    command: python main.py
+
+  
+  # database microservice
+  database-ms:
+    hostname: db-ms-challenge
+    container_name: db-ms-challenge
+    build:
+      context: .
+      dockerfile: ./db-connector/deploy/DockerFile
+    ports:
+      - "6000:5000"
+    command: python main.py
+    env_file:
+      - ./db-connector/deploy/secrets/.env
+
+volumes:
+  db_data:
+
+networks:
+  default:
+    external: true
+    name: challenge-meli-net

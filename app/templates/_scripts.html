@@ -1,0 +1,28 @@
+<script>
+    function changeVisibility(id_document, file_name, parent_name, owner_email, visibility) {
+        const documentData = {
+            id_document: id_document,
+            file_name: file_name,
+            parent_name: parent_name,
+            owner_email: owner_email,
+            visibility: 'private',
+        };
+
+        fetch('/update/individual', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(documentData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status == 'success') {
+                alert("Visibilidad cambiada a 'Privado' correctamente");
+                window.location.reload()
+            } else {
+                alert("Hubo un error al cambiar la visibilidad");
+            }
+        });
+    }
+</script>

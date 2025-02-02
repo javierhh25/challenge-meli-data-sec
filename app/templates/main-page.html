@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+{% include '_head_template.html' %}
+
+<h1>Panel de Control</h1>
+{% include '_messages.html' %}
+<body>
+    <div class="container">
+
+        <!-- Listar carpetas -->
+        <div class="section">
+            <h3>📂 Listar Carpetas</h3>
+            <p>Realiza una consulta al API de google drive y extrae todas las carpetas y sus Ids</p>
+            <button class="btn btn-primary" onclick="location.href='/list_folders'">Ver todas las carpetas</button>
+        </div>
+
+        <!-- Buscar carpeta -->
+        <div class="section">
+            <h3>🔍 Buscar una Carpeta</h3>
+            <p>Realiza una consulta al API de google drive y extrae el id de la carpeta, su argumento de búsqueda es el
+                nombre de la carpeta</p>
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Nombre de la carpeta">
+                <button type="submit" onclick="location.href='/search_folder?name='+this.previousElementSibling.value">
+                    Buscar
+                </button>
+            </div>
+        </div>
+
+        <!-- Obtener documentos -->
+        <div class="section">
+            <h3>📄 Validar Todos los documentos de Drive</h3>
+            <p>Realiza una consulta al API de google drive y extrae todos los documentos y los guarda en la base de
+                datos</p>
+            <button class="btn btn-primary" onclick="location.href='/search_documents'">Validar documentos</button>
+        </div>
+
+        <!-- Buscar documentos por ID -->
+        <div class="section">
+            <h3>🔎 Validar todos los documentos de una carpeta especifica con el ID</h3>
+            <p>Realiza una consulta al API de google drive y extrae todos los documentos de una carpeta especifica y los
+                guarda en la base de
+                datos, su argumento de búsqueda es el id de la carpeta</p>
+            <div class="form-group">
+                <input type="text" name="folder_id" placeholder="ID de la carpeta">
+                <button type="submit"
+                        onclick="location.href='/search_document_id?folder_id='+this.previousElementSibling.value">Validar
+                </button>
+            </div>
+        </div>
+
+        <!-- Sincronizar base de datos -->
+        <div class="section">
+            <h3>🔎 Ver documentos públicos</h3>
+            <p>Realiza una consulta a la base de datos y muestra los documentos públicos, tambien tiene opciones para
+                modificar los documentos y dejarlos privados
+                y enviar un correo al dueño indicando el cambio </p>
+            <button class="btn btn-primary" onclick="location.href='/list_public_documents'">Ver</button>
+        </div>
+
+    </div>
+
+    {% include '_action-buttons.html' %}
+
+</body>
+</html>
