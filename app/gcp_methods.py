@@ -81,13 +81,16 @@ def get_documents(credentials, folder_id=None):
         while True:
             results = service.files().list(
                 q=query,
-                fields="nextPageToken, files(id, name, owners, permissions, parents)",
+                fields="nextPageToken, files(id, name, mimeType, owners, permissions, parents)",
                 pageSize=1000, pageToken=page_token
             ).execute()
 
             for file in results.get('files', []):
                 file_id = file['id']
                 file_name = file['name']
+                mime_type = file.get('mimeType', '')
+                file_type = mime_type.split('.')[-1] if '.' in mime_type else mime_type.split('/')[-1]
+                file_extension = file['name'].split('.')[-1]
                 owner_email = file['owners'][0]['emailAddress'] if 'owners' in file else "Desconocido"
                 parents = file.get('parents', [])
 
@@ -106,6 +109,8 @@ def get_documents(credentials, folder_id=None):
                 documents.append({
                     "id_document": file_id,
                     "file_name": file_name,
+                    "file_type": file_type,
+                    "file_extension": file_extension,
                     "parent_name": parent_name,
                     "owner_email": owner_email,
                     "visibility": visibility

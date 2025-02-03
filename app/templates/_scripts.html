@@ -1,8 +1,10 @@
 <script>
-    function changeVisibility(id_document, file_name, parent_name, owner_email, visibility) {
+    function changeVisibility(id_document, file_name, file_type, file_extension, parent_name, owner_email, visibility) {
         const documentData = {
             id_document: id_document,
             file_name: file_name,
+            file_type: file_type,
+            file_extension: file_extension,
             parent_name: parent_name,
             owner_email: owner_email,
             visibility: 'private',

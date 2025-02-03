@@ -11,6 +11,8 @@
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Extension</th>
                 <th>Ubicación</th>
                 <th>Dueño</th>
                 <th>Visibilidad</th>
@@ -19,6 +21,8 @@
                 <tr>
                     <td>{{ doc.id_document }}</td>
                     <td>{{ doc.file_name }}</td>
+                    <td>{{ doc.file_type }}</td>
+                    <td>{{ doc.file_extension }}</td>
                     <td>{{ doc.parent_name }}</td>
                     <td>{{ doc.owner_email }}</td>
                     <td>{{ doc.visibility }}</td>

@@ -3,6 +3,7 @@ import os
 from mysql.connector.abstracts import MySQLConnectionAbstract, MySQLCursorAbstract
 from mysql.connector.pooling import PooledMySQLConnection
 from dotenv import load_dotenv
+from global_exception_log import error_logger
 import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('database-ms')
@@ -18,6 +19,8 @@ CREATE_SENTENCE_TABLE_DOCUMENTS = """
         id INT AUTO_INCREMENT PRIMARY KEY,
         id_document VARCHAR(200) UNIQUE NOT NULL,
         file_name VARCHAR(200) NOT NULL,
+        file_type VARCHAR(200) NOT NULL,
+        file_extension VARCHAR(200) NOT NULL,
         parent_name VARCHAR(200) NOT NULL,
         owner_email VARCHAR(200) NOT NULL,
         visibility VARCHAR(200) NOT NULL,
@@ -164,12 +167,12 @@ def insert_documents(documents, close_connection=True):
     result, message = verify_tables()
     if result is True:
         query = """
-        INSERT INTO document (id_document, file_name, parent_name, owner_email, visibility)
-        VALUES (%s, %s, %s, %s, %s)
+        INSERT INTO document (id_document, file_name, file_type, file_extension, parent_name, owner_email, visibility)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
         """
 
         # Convertir la lista de diccionarios en una lista de tuplas
-        values = [(doc['id_document'], doc['file_name'], doc['parent_name'], doc['owner_email'], doc['visibility']) for
+        values = [(doc['id_document'], doc['file_name'], doc['file_type'], doc['file_extension'], doc['parent_name'], doc['owner_email'], doc['visibility']) for
                   doc
                   in documents]
 
@@ -195,6 +198,8 @@ def update_registers(registers, close_connection=True):
 
     fields_to_update = [
         'file_name',
+        'file_type',
+        'file_extension',
         'parent_name',
         'owner_email',
         'visibility'
@@ -219,6 +224,8 @@ def update_registers(registers, close_connection=True):
     for record in registers:
         values_update.append((
             record['file_name'],
+            record['file_type'],
+            record['file_extension'],
             record['parent_name'],
             record['owner_email'],
             record['visibility'],
@@ -255,8 +262,9 @@ def update_registers(registers, close_connection=True):
 
     except Exception as e:
         db.rollback()
-        logger.error(f"Error al actualizar documentos y logs: {e}")
-        return False, f"Error al actualizar los documentos y logs: {e}"
+        message = f"Error al actualizar los documentos y logs: {e}"
+        error_logger(e, message)
+        return False, message
 
     finally:
         close_connection_(close_connection)

@@ -17,6 +17,8 @@
         <tr>
           <th>ID Documento</th>
           <th>Nombre</th>
+          <th>Tipo</th>
+          <th>Extension</th>
           <th>Ubicación</th>
           <th>Dueño</th>
           <th>Visibilidad</th>
@@ -26,11 +28,13 @@
           <tr>
             <td>{{ doc.id_document }}</td>
             <td>{{ doc.file_name }}</td>
+            <td>{{ doc.file_type }}</td>
+            <td>{{ doc.file_extension }}</td>
             <td>{{ doc.parent_name }}</td>
             <td>{{ doc.owner_email}}</td>
             <td id="visibility_{{ doc.id_document }}">{{ doc.visibility }}</td>
             <td>
-              <button onclick="changeVisibility('{{ doc.id_document }}', '{{ doc.file_name }}', '{{ doc.parent_name }}', '{{ doc.owner_email }}', '{{ doc.visibility }}')">Cambiar a Privado</button>
+              <button onclick="changeVisibility('{{ doc.id_document }}', '{{ doc.file_name }}', '{{ doc.file_type }}', '{{ doc.file_extension }}', '{{ doc.parent_name }}', '{{ doc.owner_email }}', '{{ doc.visibility }}')">Cambiar a Privado</button>
             </td>
           </tr>
         {% endfor %}
